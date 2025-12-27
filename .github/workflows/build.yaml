@@ -16,8 +16,23 @@ jobs:
           - platform: android
             os: ubuntu-latest
           - platform: windows
-            os: windows-latest
+            os: windows-2022
             arch: amd64
+          - platform: windows
+            os: windows-11-arm
+            arch: arm64
+          - platform: macos
+            os: macos-macos-15-intel
+            arch: amd64
+          - platform: macos
+            os: macos-latest
+            arch: arm64
+          - platform: linux
+            os: ubuntu-24.04
+            arch: amd64
+          - platform: linux
+            os: ubuntu-24.04-arm
+            arch: arm64
 
     steps:
       - name: Setup rust
@@ -61,6 +76,9 @@ jobs:
           channel: 'stable'
           cache: true
           flutter-version: 3.32.0
+
+      - name: Clean Flutter Build
+        run: flutter clean
 
       - name: Get Flutter Dependency
         run: flutter pub get
