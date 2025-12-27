@@ -282,6 +282,7 @@ class AppController {
       final code = await system.authorizeCore();
       switch (code) {
         case AuthorizeCode.success:
+          _ref.read(realTunEnableProvider.notifier).value = true;
           await restartCore();
           return Result.error('');
         case AuthorizeCode.none:
@@ -566,14 +567,15 @@ class AppController {
     );
     autoUpdateProfiles();
     autoCheckUpdate();
+
+    await _handlePreference();
+    await _handlerDisclaimer();
+    _ref.read(initProvider.notifier).value = true;
     if (!_ref.read(appSettingProvider).silentLaunch) {
       window?.show();
     } else {
       window?.hide();
     }
-    await _handlePreference();
-    await _handlerDisclaimer();
-    _ref.read(initProvider.notifier).value = true;
   }
 
   Future<void> _initStatus() async {
