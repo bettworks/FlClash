@@ -86,6 +86,9 @@ class AppController {
 
   Future<void> updateStatus(bool isStart) async {
     if (isStart) {
+      if (system.isWindows) {
+        await windows?.optimizeNetwork(true);
+      }
       await globalState.handleStart([
         updateRunTime,
         updateTraffic,
@@ -102,6 +105,9 @@ class AppController {
       }
       applyProfileDebounce();
     } else {
+      if (system.isWindows) {
+        await windows?.optimizeNetwork(false);
+      }
       await globalState.handleStop();
       clashCore.resetTraffic();
       _ref.read(trafficsProvider.notifier).clear();

@@ -322,9 +322,15 @@ class GlobalState {
       rawConfig['tun'] = {};
     }
     rawConfig['tun']['enable'] = realPatchConfig.tun.enable;
+    if (system.isWindows && realPatchConfig.tun.enable) {
+      rawConfig['tun']['strict-route'] = true;
+      rawConfig['tun']['stack'] = 'system';
+    }
     rawConfig['tun']['device'] = realPatchConfig.tun.device;
     rawConfig['tun']['dns-hijack'] = realPatchConfig.tun.dnsHijack;
-    rawConfig['tun']['stack'] = realPatchConfig.tun.stack.name;
+    rawConfig['tun']['stack'] = system.isWindows && realPatchConfig.tun.enable
+        ? 'system'
+        : realPatchConfig.tun.stack.name;
     rawConfig['tun']['route-address'] = realPatchConfig.tun.routeAddress;
     rawConfig['tun']['auto-route'] = realPatchConfig.tun.autoRoute;
     rawConfig['geodata-loader'] = realPatchConfig.geodataLoader.name;

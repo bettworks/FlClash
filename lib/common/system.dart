@@ -310,6 +310,31 @@ class Windows {
       commandLine.replaceFirst('%s', taskPath),
     );
   }
+
+  Future<bool> unregisterTask(String appName) async {
+    final commandLine = [
+      '/Delete',
+      '/TN',
+      appName,
+      '/F',
+    ].join(' ');
+    return runas(
+      'schtasks',
+      commandLine,
+    );
+  }
+
+  Future<void> optimizeNetwork(bool enable) async {
+    if (enable) {
+      // 降低 TUN 网卡 Metric，提高物理网卡 Metric
+      runas('cmd.exe', '/c netsh interface ip set interface "LiClash" metric=1 & netsh interface ipv6 set interface "LiClash" metric=1');
+      // 禁用物理网卡 IPv6 (防泄漏)
+      runas('powershell.exe', 'Get-NetAdapter | Where-Object { $_.Name -ne "LiClash" } | Disable-NetAdapterBinding -ComponentID ms_tcpip6');
+    } else {
+      // 恢复物理网卡 IPv6
+      runas('powershell.exe', 'Get-NetAdapter | Where-Object { $_.Name -ne "LiClash" } | Enable-NetAdapterBinding -ComponentID ms_tcpip6');
+    }
+  }
 }
 
 final windows = system.isWindows ? Windows() : null;

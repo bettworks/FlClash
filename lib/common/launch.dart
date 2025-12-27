@@ -27,10 +27,16 @@ class AutoLaunch {
   }
 
   Future<bool> enable() async {
+    if (system.isWindows) {
+      return await windows?.registerTask(appName) ?? false;
+    }
     return await launchAtStartup.enable();
   }
 
   Future<bool> disable() async {
+    if (system.isWindows) {
+      return await windows?.unregisterTask(appName) ?? false;
+    }
     return await launchAtStartup.disable();
   }
 
