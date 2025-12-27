@@ -2,18 +2,18 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
+import 'package:li_clash/common/common.dart';
+import 'package:li_clash/enum/enum.dart';
+import 'package:li_clash/models/models.dart';
 import 'package:flutter/material.dart';
 
-const appName = 'FlClash';
-const appHelperService = 'FlClashHelperService';
+const appName = 'LiClash';
+const appHelperService = 'LiClashHelperService';
 const coreName = 'clash.meta';
 const browserUa =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-const packageName = 'com.follow.clash';
-final unixSocketPath = '/tmp/FlClashSocket_${Random().nextInt(10000)}.sock';
+const packageName = 'com.appshub.liclash';
+final unixSocketPath = '/tmp/LiClashSocket_${Random().nextInt(10000)}.sock';
 const helperPort = 47890;
 const maxTextScale = 1.4;
 const minTextScale = 0.8;
@@ -44,7 +44,7 @@ const localhost = '127.0.0.1';
 const clashConfigKey = 'clash_config';
 const configKey = 'config';
 const double dialogCommonWidth = 300;
-const repository = 'chen08209/FlClash';
+const repository = 'chen08209/LiClash';
 const defaultExternalController = '127.0.0.1:9090';
 const maxMobileWidth = 600;
 const maxLaptopWidth = 840;
@@ -89,9 +89,9 @@ double getWidgetHeight(num lines) {
 
 const maxLength = 1000;
 
-final mainIsolate = 'FlClashMainIsolate';
+final mainIsolate = 'LiClashMainIsolate';
 
-final serviceIsolate = 'FlClashServiceIsolate';
+final serviceIsolate = 'LiClashServiceIsolate';
 
 const defaultPrimaryColors = [
   0xFF795548,

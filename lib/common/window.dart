@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/state.dart';
+import 'package:li_clash/common/common.dart';
+import 'package:li_clash/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart' as acrylic;
 import 'package:screen_retriever/screen_retriever.dart';
@@ -17,7 +17,7 @@ class Window {
     if (system.isWindows) {
       protocol.register('clash');
       protocol.register('clashmeta');
-      protocol.register('flclash');
+      protocol.register('liclash');
     }
     if ((version > 10 && system.isMacOS)) {
       await acrylic.Window.initialize();

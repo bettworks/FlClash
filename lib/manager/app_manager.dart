@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/manager/window_manager.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/state.dart';
+import 'package:li_clash/common/common.dart';
+import 'package:li_clash/enum/enum.dart';
+import 'package:li_clash/manager/window_manager.dart';
+import 'package:li_clash/providers/providers.dart';
+import 'package:li_clash/state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/widgets/transparent_macos_sidebar.dart';

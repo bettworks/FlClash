@@ -1,7 +1,7 @@
-import 'package:fl_clash/enum/enum.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/providers/providers.dart';
-import 'package:fl_clash/views/views.dart';
+import 'package:li_clash/enum/enum.dart';
+import 'package:li_clash/models/models.dart';
+import 'package:li_clash/providers/providers.dart';
+import 'package:li_clash/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

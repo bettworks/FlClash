@@ -1,9 +1,9 @@
-package com.follow.clash
+package com.appshub.liclash
 
 import androidx.lifecycle.MutableLiveData
-import com.follow.clash.plugins.AppPlugin
-import com.follow.clash.plugins.TilePlugin
-import com.follow.clash.plugins.VpnPlugin
+import com.appshub.liclash.plugins.AppPlugin
+import com.appshub.liclash.plugins.TilePlugin
+import com.appshub.liclash.plugins.VpnPlugin
 import io.flutter.FlutterInjector
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -24,7 +24,7 @@ enum class RunState {
 object GlobalState {
     val runLock = ReentrantLock()
 
-    const val NOTIFICATION_CHANNEL = "FlClash"
+    const val NOTIFICATION_CHANNEL = "LiClash"
 
     const val NOTIFICATION_ID = 1
 
@@ -106,7 +106,7 @@ object GlobalState {
         if (serviceEngine != null) return
         destroyServiceEngine()
         runLock.withLock {
-            serviceEngine = FlutterEngine(FlClashApplication.getAppContext())
+            serviceEngine = FlutterEngine(LiClashApplication.getAppContext())
             serviceEngine?.plugins?.add(VpnPlugin)
             serviceEngine?.plugins?.add(AppPlugin())
             serviceEngine?.plugins?.add(TilePlugin())

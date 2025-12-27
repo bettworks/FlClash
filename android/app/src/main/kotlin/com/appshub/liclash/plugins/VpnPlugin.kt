@@ -1,4 +1,4 @@
-package com.follow.clash.plugins
+package com.appshub.liclash.plugins
 
 import android.content.ComponentName
 import android.content.Context
@@ -11,17 +11,17 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.os.IBinder
 import androidx.core.content.getSystemService
-import com.follow.clash.FlClashApplication
-import com.follow.clash.GlobalState
-import com.follow.clash.RunState
-import com.follow.clash.core.Core
-import com.follow.clash.extensions.awaitResult
-import com.follow.clash.extensions.resolveDns
-import com.follow.clash.models.StartForegroundParams
-import com.follow.clash.models.VpnOptions
-import com.follow.clash.services.BaseServiceInterface
-import com.follow.clash.services.FlClashService
-import com.follow.clash.services.FlClashVpnService
+import com.appshub.liclash.LiClashApplication
+import com.appshub.liclash.GlobalState
+import com.appshub.liclash.RunState
+import com.appshub.liclash.core.Core
+import com.appshub.liclash.extensions.awaitResult
+import com.appshub.liclash.extensions.resolveDns
+import com.appshub.liclash.models.StartForegroundParams
+import com.appshub.liclash.models.VpnOptions
+import com.appshub.liclash.services.BaseServiceInterface
+import com.appshub.liclash.services.LiClashService
+import com.appshub.liclash.services.LiClashVpnService
 import com.google.gson.Gson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -38,7 +38,7 @@ import kotlin.concurrent.withLock
 
 data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     private lateinit var flutterMethodChannel: MethodChannel
-    private var flClashService: BaseServiceInterface? = null
+    private var liClashService: BaseServiceInterface? = null
     private var options: VpnOptions? = null
     private var isBind: Boolean = false
     private lateinit var scope: CoroutineScope
@@ -47,15 +47,15 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     private val uidPageNameMap = mutableMapOf<Int, String>()
 
     private val connectivity by lazy {
-        FlClashApplication.getAppContext().getSystemService<ConnectivityManager>()
+        LiClashApplication.getAppContext().getSystemService<ConnectivityManager>()
     }
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             isBind = true
-            flClashService = when (service) {
-                is FlClashVpnService.LocalBinder -> service.getService()
-                is FlClashService.LocalBinder -> service.getService()
+            liClashService = when (service) {
+                is LiClashVpnService.LocalBinder -> service.getService()
+                is LiClashService.LocalBinder -> service.getService()
                 else -> throw Exception("invalid binder")
             }
             handleStartService()
@@ -63,7 +63,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
         override fun onServiceDisconnected(arg: ComponentName) {
             isBind = false
-            flClashService = null
+            liClashService = null
         }
     }
 
@@ -102,7 +102,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     fun handleStart(options: VpnOptions): Boolean {
         onUpdateNetwork();
         if (options.enable != this.options?.enable) {
-            this.flClashService = null
+            this.liClashService = null
         }
         this.options = options
         when (options.enable) {
@@ -176,7 +176,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
             )
             if (lastStartForegroundParams != startForegroundParams) {
                 lastStartForegroundParams = startForegroundParams
-                flClashService?.startForeground(
+                liClashService?.startForeground(
                     startForegroundParams.title,
                     startForegroundParams.content,
                 )
@@ -209,14 +209,14 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     }
 
     private fun handleStartService() {
-        if (flClashService == null) {
+        if (liClashService == null) {
             bindService()
             return
         }
         GlobalState.runLock.withLock {
             if (GlobalState.runState.value == RunState.START) return
             GlobalState.runState.value = RunState.START
-            val fd = flClashService?.start(options!!)
+            val fd = liClashService?.start(options!!)
             Core.startTun(
                 fd = fd ?: 0,
                 protect = this::protect,
@@ -227,7 +227,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     }
 
     private fun protect(fd: Int): Boolean {
-        return (flClashService as? FlClashVpnService)?.protect(fd) == true
+        return (liClashService as? LiClashVpnService)?.protect(fd) == true
     }
 
     private fun resolverProcess(
@@ -246,7 +246,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         }
         if (!uidPageNameMap.containsKey(nextUid)) {
             uidPageNameMap[nextUid] =
-                FlClashApplication.getAppContext().packageManager?.getPackagesForUid(nextUid)
+                LiClashApplication.getAppContext().packageManager?.getPackagesForUid(nextUid)
                     ?.first() ?: ""
         }
         return uidPageNameMap[nextUid] ?: ""
@@ -256,7 +256,7 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         GlobalState.runLock.withLock {
             if (GlobalState.runState.value == RunState.STOP) return
             GlobalState.runState.value = RunState.STOP
-            flClashService?.stop()
+            liClashService?.stop()
             stopForegroundJob()
             Core.stopTun()
             GlobalState.handleTryDestroy()
@@ -265,12 +265,12 @@ data object VpnPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     private fun bindService() {
         if (isBind) {
-            FlClashApplication.getAppContext().unbindService(connection)
+            LiClashApplication.getAppContext().unbindService(connection)
         }
         val intent = when (options?.enable == true) {
-            true -> Intent(FlClashApplication.getAppContext(), FlClashVpnService::class.java)
-            false -> Intent(FlClashApplication.getAppContext(), FlClashService::class.java)
+            true -> Intent(LiClashApplication.getAppContext(), LiClashVpnService::class.java)
+            false -> Intent(LiClashApplication.getAppContext(), LiClashService::class.java)
         }
-        FlClashApplication.getAppContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        LiClashApplication.getAppContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
 }

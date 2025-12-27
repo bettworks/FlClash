@@ -1,4 +1,4 @@
-package com.follow.clash.services
+package com.appshub.liclash.services
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
@@ -8,13 +8,13 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
-import com.follow.clash.GlobalState
-import com.follow.clash.RunState
-import com.follow.clash.TempActivity
+import com.appshub.liclash.GlobalState
+import com.appshub.liclash.RunState
+import com.appshub.liclash.TempActivity
 
 
 @RequiresApi(Build.VERSION_CODES.N)
-class FlClashTileService : TileService() {
+class LiClashTileService : TileService() {
 
     private val observer = Observer<RunState> { runState ->
         updateTile(runState)

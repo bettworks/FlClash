@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/providers/config.dart';
-import 'package:fl_clash/state.dart';
-import 'package:fl_clash/widgets/list.dart';
+import 'package:li_clash/common/common.dart';
+import 'package:li_clash/providers/config.dart';
+import 'package:li_clash/state.dart';
+import 'package:li_clash/widgets/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -52,7 +52,7 @@ class AboutView extends StatelessWidget {
           title: const Text('Telegram'),
           onTap: () {
             globalState.openUrl(
-              'https://t.me/FlClash',
+              'https://t.me/LiClash',
             );
           },
           trailing: const Icon(Icons.launch),
@@ -70,7 +70,7 @@ class AboutView extends StatelessWidget {
           title: Text(appLocalizations.core),
           onTap: () {
             globalState.openUrl(
-              'https://github.com/chen08209/Clash.Meta/tree/FlClash',
+              'https://github.com/chen08209/Clash.Meta/tree/LiClash',
             );
           },
           trailing: const Icon(Icons.launch),

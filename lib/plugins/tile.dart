@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fl_clash/common/system.dart';
+import 'package:li_clash/common/system.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 

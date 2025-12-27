@@ -1,4 +1,4 @@
-package com.follow.clash
+package com.appshub.liclash
 
 import android.database.Cursor
 import android.database.MatrixCursor
@@ -43,7 +43,7 @@ class FilesProvider : DocumentsProvider() {
                 add(Root.COLUMN_ROOT_ID, DEFAULT_ROOT_ID)
                 add(Root.COLUMN_FLAGS, Root.FLAG_LOCAL_ONLY)
                 add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
-                add(Root.COLUMN_TITLE, context!!.getString(R.string.fl_clash))
+                add(Root.COLUMN_TITLE, context!!.getString(R.string.li_clash))
                 add(Root.COLUMN_SUMMARY, "Data")
                 add(Root.COLUMN_DOCUMENT_ID, "/")
             }

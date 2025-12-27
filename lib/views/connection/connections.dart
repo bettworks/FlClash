@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:fl_clash/clash/clash.dart';
-import 'package:fl_clash/common/common.dart';
-import 'package:fl_clash/models/models.dart';
-import 'package:fl_clash/widgets/widgets.dart';
+import 'package:li_clash/clash/clash.dart';
+import 'package:li_clash/common/common.dart';
+import 'package:li_clash/models/models.dart';
+import 'package:li_clash/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

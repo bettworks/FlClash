@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 
-import 'package:fl_clash/common/system.dart';
-import 'package:fl_clash/state.dart';
+import 'package:li_clash/common/system.dart';
+import 'package:li_clash/state.dart';
 import 'package:flutter/services.dart';
 
 import '../clash/lib.dart';

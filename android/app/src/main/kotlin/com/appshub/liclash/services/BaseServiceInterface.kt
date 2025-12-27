@@ -1,4 +1,4 @@
-package com.follow.clash.services
+package com.appshub.liclash.services
 
 import android.annotation.SuppressLint
 import android.app.Notification
@@ -11,11 +11,11 @@ import android.content.Intent
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.follow.clash.GlobalState
-import com.follow.clash.MainActivity
-import com.follow.clash.R
-import com.follow.clash.extensions.getActionPendingIntent
-import com.follow.clash.models.VpnOptions
+import com.appshub.liclash.GlobalState
+import com.appshub.liclash.MainActivity
+import com.appshub.liclash.R
+import com.appshub.liclash.extensions.getActionPendingIntent
+import com.appshub.liclash.models.VpnOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -30,31 +30,31 @@ interface BaseServiceInterface {
     suspend fun startForeground(title: String, content: String)
 }
 
-fun Service.createFlClashNotificationBuilder(): Deferred<NotificationCompat.Builder> =
+fun Service.createLiClashNotificationBuilder(): Deferred<NotificationCompat.Builder> =
     CoroutineScope(Dispatchers.Main).async {
         val stopText = GlobalState.getText("stop")
-        val intent = Intent(this@createFlClashNotificationBuilder, MainActivity::class.java)
+        val intent = Intent(this@createLiClashNotificationBuilder, MainActivity::class.java)
 
         val pendingIntent = if (Build.VERSION.SDK_INT >= 31) {
             PendingIntent.getActivity(
-                this@createFlClashNotificationBuilder,
+                this@createLiClashNotificationBuilder,
                 0,
                 intent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
         } else {
             PendingIntent.getActivity(
-                this@createFlClashNotificationBuilder, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+                this@createLiClashNotificationBuilder, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
 
         with(
             NotificationCompat.Builder(
-                this@createFlClashNotificationBuilder, GlobalState.NOTIFICATION_CHANNEL
+                this@createLiClashNotificationBuilder, GlobalState.NOTIFICATION_CHANNEL
             )
         ) {
             setSmallIcon(R.drawable.ic)
-            setContentTitle("FlClash")
+            setContentTitle("LiClash")
             setContentIntent(pendingIntent)
             setCategory(NotificationCompat.CATEGORY_SERVICE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

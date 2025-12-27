@@ -1,4 +1,4 @@
-package com.follow.clash.models
+package com.appshub.liclash.models
 
 data class Package(
     val packageName: String,

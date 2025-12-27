@@ -1,4 +1,4 @@
-package com.follow.clash.services
+package com.appshub.liclash.services
 
 import android.annotation.SuppressLint
 import android.app.Service
@@ -7,11 +7,11 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.follow.clash.GlobalState
-import com.follow.clash.models.VpnOptions
+import com.appshub.liclash.GlobalState
+import com.appshub.liclash.models.VpnOptions
 
 
-class FlClashService : Service(), BaseServiceInterface {
+class LiClashService : Service(), BaseServiceInterface {
 
     override fun start(options: VpnOptions) = 0
 
@@ -26,7 +26,7 @@ class FlClashService : Service(), BaseServiceInterface {
 
     private suspend fun notificationBuilder(): NotificationCompat.Builder {
         if (cachedBuilder == null) {
-            cachedBuilder = createFlClashNotificationBuilder().await()
+            cachedBuilder = createLiClashNotificationBuilder().await()
         }
         return cachedBuilder!!
     }
@@ -49,7 +49,7 @@ class FlClashService : Service(), BaseServiceInterface {
     private val binder = LocalBinder()
 
     inner class LocalBinder : Binder() {
-        fun getService(): FlClashService = this@FlClashService
+        fun getService(): LiClashService = this@LiClashService
     }
 
     override fun onBind(intent: Intent): IBinder {

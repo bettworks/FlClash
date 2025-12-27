@@ -1,14 +1,14 @@
-display_name: FlClash
+display_name: LiClash
 
 icon: ./assets/images/icon.png
 
 keywords:
-  - FlClash
+  - LiClash
   - Clash
   - ClashMeta
   - Proxy
 
-generic_name: FlClash
+generic_name: LiClash
 
 categories:
   - Network
