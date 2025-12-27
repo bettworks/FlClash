@@ -666,9 +666,9 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
   final _subRuleController = TextEditingController();
   bool _noResolve = false;
   bool _src = false;
-  List<DropdownMenuEntry> _targetItems = [];
-  List<DropdownMenuEntry> _ruleProviderItems = [];
-  List<DropdownMenuEntry> _subRuleItems = [];
+  List<DropdownMenuEntry<String>> _targetItems = [];
+  List<DropdownMenuEntry<String>> _ruleProviderItems = [];
+  List<DropdownMenuEntry<String>> _subRuleItems = [];
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -680,13 +680,13 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
   void _initState() {
     _targetItems = [
       ...widget.snippet.proxyGroups.map(
-        (item) => DropdownMenuEntry(
+        (item) => DropdownMenuEntry<String>(
           value: item.name,
           label: item.name,
         ),
       ),
       ...RuleTarget.values.map(
-        (item) => DropdownMenuEntry(
+        (item) => DropdownMenuEntry<String>(
           value: item.name,
           label: item.name,
         ),
@@ -694,7 +694,7 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
     ];
     _ruleProviderItems = [
       ...widget.snippet.ruleProvider.map(
-        (item) => DropdownMenuEntry(
+        (item) => DropdownMenuEntry<String>(
           value: item.name,
           label: item.name,
         ),
@@ -702,7 +702,7 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
     ];
     _subRuleItems = [
       ...widget.snippet.subRules.map(
-        (item) => DropdownMenuEntry(
+        (item) => DropdownMenuEntry<String>(
           value: item.name,
           label: item.name,
         ),
@@ -817,7 +817,7 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
                             return null;
                           },
                           builder: (field) {
-                            return DropdownMenu(
+                            return DropdownMenu<String>(
                               expandedInsets: EdgeInsets.zero,
                               controller: _ruleProviderController,
                               label: Text(appLocalizations.ruleProviders),
@@ -854,7 +854,7 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
                             return null;
                           },
                           builder: (filed) {
-                            return DropdownMenu(
+                            return DropdownMenu<String>(
                               width: 200,
                               enableFilter: false,
                               enableSearch: false,
@@ -875,7 +875,7 @@ class _AddRuleDialogState extends State<AddRuleDialog> {
                             return null;
                           },
                           builder: (filed) {
-                            return DropdownMenu(
+                            return DropdownMenu<String>(
                               controller: _ruleTargetController,
                               label: Text(appLocalizations.ruleTarget),
                               width: 200,
